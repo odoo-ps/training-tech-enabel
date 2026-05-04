@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../odoo/repositories/odoo/enterprise"
+		},
+		{
+			"path": "../../../../odoo/repositories/odoo/odoo"
+		}
+	],
+	"settings": {
+		"python.languageServer": "None"
+	}
+}
