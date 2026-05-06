@@ -1,0 +1,14 @@
+from odoo import models, fields
+
+
+class LoanApplication(models.Model):
+    _name = 'loan.application'
+    _description = 'Loan Application'
+
+    name = fields.Char(required=True)
+    loan_tern =  fields.Integer(default=36)
+    interest_rate = fields.Float(digits=(5,2))
+    date_applied = fields.Date(default=lambda self:fields.Date.today())
+    state = fields.Selection(selection=[('draft','draft'),('credit check','credit check')])
+    active = fields.Boolean(default=True)
+    notes = fields.Html()
