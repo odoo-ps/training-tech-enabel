@@ -5,8 +5,8 @@
     'category': 'Kawiil/Kawiil',
     'author': 'Odoo, Inc.',
     'website': 'https://github.com/odoo-trainings/kawiil-base/',
-    'version': '1.0.0',
-    'depends': ['base'],
+    'version': '1.0.1',
+    'depends': ['product'],
     'data': [
     ],
     'demo': [

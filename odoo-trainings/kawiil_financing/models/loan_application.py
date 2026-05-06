@@ -12,3 +12,7 @@ class LoanApplication(models.Model):
     state = fields.Selection(selection=[('draft','draft'),('credit check','credit check')])
     active = fields.Boolean(default=True)
     notes = fields.Html()
+    partner_id = fields.Many2One(comodel_name="res.partner")
+    user_id = fields.Many2One(comodel_name="res.users")
+    product_id = fields.Many2One(comodel_name="product.template")
+    currency_id = fields.Many2One(comodel_name="res.currency")
