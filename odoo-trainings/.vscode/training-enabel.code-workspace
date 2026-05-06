@@ -4,12 +4,6 @@
 			"path": ".."
 		},
 		{
-			"path": "../../../../odoo/repositories/odoo/enterprise"
-		},
-		{
-			"path": "../../../../odoo/repositories/odoo/odoo"
-		},
-		{
 			"path": "../../../../../odev/worktrees/19.0/design-themes"
 		},
 		{

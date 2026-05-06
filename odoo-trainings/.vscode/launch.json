@@ -19,14 +19,11 @@
                 "/home/odoo/odev/worktrees/19.0/enterprise,/home/odoo/odev/worktrees/19.0/design-themes,/home/odoo/odev/worktrees/19.0/odoo/addons,/home/odoo/odev/worktrees/19.0/odoo/odoo/addons,.",
                 "-u",
                 "kawiil_financing",
-                // "-i",
-                // "base",
                 // "--test-enable",
-                // "--stop-after-init", // CRITIQUE : Obligatoire pour lancer les tests et s'arrêter
+                // "--stop-after-init", 
                 // "--test-tags",
                 // "/purchase,/account,/industry_fsm",
-                "--log-level=test", // Recommandé : Affiche les logs de tests clairement
-                "--limit-time-cpu=0",
+                "--log-level=test",
                 "--limit-time-real=0",
             ]
         },
