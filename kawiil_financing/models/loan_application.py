@@ -26,3 +26,15 @@ class LoanApplication(models.Model):
     )
     active = fields.Boolean(default=True)
     notes = fields.Html(string="Notes internes")
+
+    partner_id = fields.Many2one(comodel_name="res.partner", string="Client", required=True)
+    user_id = fields.Many2one(
+        comodel_name="res.users",
+        string="Vendeur",
+        default=lambda self: self.env.user,
+    )
+    product_id = fields.Many2one(comodel_name="product.template", string="Moto")
+
+    currency_id = fields.Many2one(comodel_name="res.currency")
+    loan_amount = fields.Monetary(string="Montant du prêt", currency_field="currency_id")
+    down_payment = fields.Monetary(string="Acompte", currency_field="currency_id")

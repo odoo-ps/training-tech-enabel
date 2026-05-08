@@ -5,5 +5,8 @@
     'summary': 'Simplifie le processus de demande de prêt pour les concessionnaires',
     'author': 'sdelbeke',
     'license': 'OPL-1',
+    'depends': [
+        'product'
+    ],
     'application': True,
 }
