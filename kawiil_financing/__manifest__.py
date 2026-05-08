@@ -9,4 +9,7 @@
         'product'
     ],
     'application': True,
+    'demo': [
+        'demo/loan_demo.xml',
+    ],
 }
