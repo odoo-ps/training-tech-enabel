@@ -4,7 +4,7 @@
     'category': "Kawiil/Custom Modules",
     'version': "1.0.0",
     'author': "Malick SENE/MalickSe",
-    'depends': ['base'],
+    'depends': ['product'],
     'license': "OPL-1",
     'application': True,
 }
