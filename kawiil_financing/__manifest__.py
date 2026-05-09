@@ -5,8 +5,8 @@
     'version': "1.0.0",
     'author': "Malick SENE/MalickSe",
     'depends': ['product'],
-    'data': [
-    'views/loan_application_views.xml',
+'demo': [
+    'demo/loan_demo.xml',
 ],
 
     'license': "OPL-1",
