@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- MENU RACINE -->
+    <menuitem id="menu_financing_root" name="Financing" sequence="10"/>
+
+    <!-- MENU SUPÉRIEUR -->
+    <menuitem id="menu_motorcycle_financing"
+              name="Motorcycle Financing"
+              parent="menu_financing_root"
+              sequence="20"/>
+
+    <!-- MENU ACTION -->
+    <menuitem id="menu_loan_application"
+              name="Loan Applications"
+              parent="menu_motorcycle_financing"
+              action="action_loan_application"
+              sequence="30"/>
+
+</odoo>

@@ -5,9 +5,15 @@
     'version': "1.0.0",
     'author': "Malick SENE/MalickSe",
     'depends': ['product'],
-'demo': [
+
+    'data': [
+    'security/ir.model.access.csv',
+    'views/loan_application_views.xml',
+    'views/kawiil_financing_menu.xml',
+    ],
+    'demo': [
     'demo/loan_demo.xml',
-],
+    ],
 
     'license': "OPL-1",
     'application': True,
