@@ -10,6 +10,9 @@
     ],
     'application': True,
     'data': [
+        'security/kawiil_financing_groups.xml',
+        'security/ir.model.access.csv',
+        'security/kawiil_financing_security.xml',
         'views/loan_application_views.xml',
         'views/kawiil_financing_menu.xml',
     ],

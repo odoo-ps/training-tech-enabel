@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="rule_loan_application_user_no_edit_signed" model="ir.rule">
+        <field name="name">Loan Application: Users cannot edit or delete signed loans</field>
+        <field name="model_id" ref="model_loan_application"/>
+    g
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('state', 'not in', ['signed'])]</field>
+    </record>
+
+</odoo>
