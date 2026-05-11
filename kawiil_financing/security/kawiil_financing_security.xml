@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+    <data noupdate="1">
 
-    <record id="rule_loan_application_user_no_edit_signed" model="ir.rule">
-        <field name="name">Loan Application: Users cannot edit or delete signed loans</field>
-        <field name="model_id" ref="model_loan_application"/>
-    g
-        <field name="perm_read" eval="False"/>
-        <field name="perm_write" eval="True"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_unlink" eval="True"/>
-        <field name="domain_force">[('state', 'not in', ['signed'])]</field>
-    </record>
+        <record id="rule_loan_application_user_no_edit_signed" model="ir.rule">
+            <field name="name">Loan Application: Users cannot edit or delete signed loans</field>
+            <field name="model_id" ref="model_loan_application"/>
+            <field name="groups" eval="[(4, ref('kawiil_financing.group_financing_user'))]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="domain_force">[('state', 'not in', ['signed'])]</field>
+        </record>
 
+    </data>
 </odoo>
