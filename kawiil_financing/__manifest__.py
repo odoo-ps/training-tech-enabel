@@ -9,6 +9,10 @@
         'product'
     ],
     'application': True,
+    'data': [
+        'views/loan_application_views.xml',
+        'views/kawiil_financing_menu.xml',
+    ],
     'demo': [
         'demo/loan_demo.xml',
     ],

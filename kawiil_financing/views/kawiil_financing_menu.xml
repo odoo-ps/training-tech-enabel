@@ -1,0 +1,5 @@
+<menuitem id="financing_menu_root" name="Financing">
+    <menuitem id="motorcycle_financing_first_level_menu" name="Motorcycle Financing">
+        <menuitem id="loan_application_menu_action" name="Loan Applications" action="action_loan_application"/>
+    </menuitem>
+</menuitem>
