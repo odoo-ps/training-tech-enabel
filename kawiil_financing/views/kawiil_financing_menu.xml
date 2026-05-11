@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="financing_menu_root" name="Financing">
+    <menuitem id="financing_menu_root" name="Financing" web_icon="kawiil_financing,static/description/icon.png">
         <menuitem id="motorcycle_financing_first_level_menu" name="Motorcycle Financing">
             <menuitem id="loan_application_menu_action" name="Loan Applications" action="action_loan_application"/>
         </menuitem>
