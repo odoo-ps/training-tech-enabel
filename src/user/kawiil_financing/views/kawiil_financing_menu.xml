@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Menu principal K'awiil -->
+    <menuitem
+        id="menu_kawiil_root"
+        name="K'awiil"
+        sequence="10"/>
+
+    <!-- Menu K'awiil Financing -->
+    <menuitem
+        id="menu_kawiil_financing"
+        name="K'awiil Financing"
+        parent="menu_kawiil_root"
+        sequence="20"/>
+
+</odoo>

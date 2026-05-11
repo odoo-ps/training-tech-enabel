@@ -1,4 +1,3 @@
-
 {
     "name": "Kawiil Financing",
     "summary": "Simplifie le processus de demande de prêt pour les concessionnaires.",
@@ -6,6 +5,9 @@
     "version": "1.0.0",
     "author": "Malorie Amoussou",
     "depends": ["base"],
+    "data": [
+        "views/kawiil_financing_menu.xml",
+    ],
     "license": "OPL-1",
     "application": True,
 }
