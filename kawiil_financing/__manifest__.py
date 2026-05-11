@@ -10,6 +10,6 @@
     ],
     'application': True,
     'demo': [
-        'data/loan_demo.xml',
+        'demo/loan_demo.xml',
     ],
 }
