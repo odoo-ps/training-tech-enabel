@@ -39,3 +39,10 @@ class LoanApplication(models.Model):
     currency_id = fields.Many2one(comodel_name="res.currency")
     loan_amount = fields.Monetary(string="Montant du prêt", currency_field="currency_id", required=True)
     down_payment = fields.Monetary(string="Acompte", currency_field="currency_id")
+
+    tag_ids = fields.Many2many(comodel_name="loan.application.tag", string="Tags")
+    document_ids = fields.One2many(
+        comodel_name="loan.application.document",
+        inverse_name="application_id",
+        string="Documents",
+    )

@@ -38,6 +38,18 @@
                             <field name="date_applied"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page name="compliance_checklist" string="Liste de contrôle de conformité">
+                            <field name="document_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="type_id"/>
+                                    <field name="state"/>
+                                    <field name="attachment_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
