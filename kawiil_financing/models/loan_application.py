@@ -79,6 +79,7 @@ class LoanApplication(models.Model):
 # ✅ TAGS
 class LoanApplicationTag(models.Model):
     _name = 'loan.application.tag'
+    _description = 'Loan Application Tag'
 
     name = fields.Char(required=True)
     color = fields.Integer()
@@ -87,6 +88,7 @@ class LoanApplicationTag(models.Model):
 # ✅ DOCUMENT TYPE
 class LoanApplicationDocumentType(models.Model):
     _name = 'loan.application.document.type'
+    _description = 'Loan Application Document Type'
 
     name = fields.Char(required=True)
     is_required = fields.Boolean(string="Obligatoire")
@@ -96,6 +98,7 @@ class LoanApplicationDocumentType(models.Model):
 # ✅ DOCUMENT
 class LoanApplicationDocument(models.Model):
     _name = 'loan.application.document'
+    _description = 'Loan Application Document'
 
     name = fields.Char(required=True)
 
