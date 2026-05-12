@@ -1,10 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_loan_application_list" model="ir.ui.view">
+        <field name="name">loan.application.list</field>
+        <field name="model">loan.application</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="loan_amount"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_loan_application_form" model="ir.ui.view">
+        <field name="name">loan.application.form</field>
+        <field name="model">loan.application</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,approved,signed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="user_id"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group>
+                            <field name="currency_id"/>
+                            <field name="loan_amount"/>
+                            <field name="down_payment"/>
+                            <field name="loan_term"/>
+                            <field name="interest_rate"/>
+                            <field name="date_applied"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_loan_application_search" model="ir.ui.view">
+        <field name="name">loan.application.search</field>
+        <field name="model">loan.application</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+
+                <filter name="archived" string="Archivé" domain="[('active', '=', False)]"/>
+                <filter name="draft" string="Brouillon" domain="[('state', '=', 'draft')]"/>
+                <filter name="approved" string="Approuvé" domain="[('state', '=', 'approved')]"/>
+
+                <separator/>
+
+                <group>
+                    <filter name="group_by_state" string="État" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter name="group_by_partner" string="Partenaire" domain="[]" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
 
     <record id="action_loan_application" model="ir.actions.act_window">
         <field name="name">Demandes de prêt</field>
         <field name="res_model">loan.application</field>
         <field name="view_mode">list,form</field>
     </record>
-
 </odoo>
