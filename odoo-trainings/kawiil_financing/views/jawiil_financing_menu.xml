@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_kawiil_financing_root"
+                  name="Financing"
+                  sequence="10"/>
+
+        <menuitem id="menu_kawiil_motorcycle_financing"
+                  name="Motorcycle Financing"
+                  parent="menu_kawiil_financing_root"
+                  sequence="10"/>
+
+        <menuitem id="menu_kawiil_loan_applications"
+                  name="Loan Applications"
+                  parent="menu_kawiil_motorcycle_financing"
+                  action="account_loan_application_views"
+                  sequence="10"/>
+    </data>
+</odoo>

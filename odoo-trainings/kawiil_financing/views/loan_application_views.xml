@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>        
+        <record model="ir.actions.act_window" id="account_loan_application_views">
+            <field name="name">loan.application.views</field>
+            <field name="view_mode">list,form</field>
+            <field name="res_model">loan.application</field>
+        </record>
+    </data>
+</odoo>
