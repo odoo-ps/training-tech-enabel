@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="tag_vip" model="loan.application.tag">
+            <field name="name">VIP</field>
+        </record>
+
+        <record id="tag_first" model="loan.application.tag">
+            <field name="name">Premier achat</field>
+        </record>
+
+        <record id="doc_id" model="loan.application.document.type">
+            <field name="name">Justificatif d'identité</field>
+            <field name="is_required">True</field>
+        </record>
+
+        <record id="doc_income" model="loan.application.document.type">
+            <field name="name">Justificatif de revenus</field>
+            <field name="is_required">True</field>
+        </record>
+
+    </data>
+</odoo>

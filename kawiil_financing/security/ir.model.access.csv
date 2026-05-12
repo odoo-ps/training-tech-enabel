@@ -1,3 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_loan_application_user,loan.application.user,model_loan_application,kawiil_financing.group_financing_user,1,1,1,0
-access_loan_application_admin,loan.application.admin,model_loan_application,kawiil_financing.group_financing_admin,1,1,1,1
+loan_user,loan.user,model_loan_application,kawiil_financing.group_financing_user,1,1,1,0
+loan_admin,loan.admin,model_loan_application,kawiil_financing.group_financing_admin,1,1,1,1
+tag_user,tag.user,model_loan_application_tag,kawiil_financing.group_financing_user,1,0,0,0
+tag_admin,tag.admin,model_loan_application_tag,kawiil_financing.group_financing_admin,1,1,1,1
+doctype_user,doctype.user,model_loan_application_document_type,kawiil_financing.group_financing_user,1,0,0,0
+doctype_admin,doctype.admin,model_loan_application_document_type,kawiil_financing.group_financing_admin,1,1,1,1
+doc_user,doc.user,model_loan_application_document,kawiil_financing.group_financing_user,1,1,1,1
+doc_admin,doc.admin,model_loan_application_document,kawiil_financing.group_financing_admin,1,1,1,1

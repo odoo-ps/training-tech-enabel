@@ -1,13 +1,11 @@
 from odoo import models, fields
 
+
 class LoanApplication(models.Model):
     _name = 'loan.application'
     _description = 'Loan Application'
 
-    name = fields.Char(
-        string="Numéro de demande",
-        required=True
-    )
+    name = fields.Char(string="Numéro de demande", required=True)
 
     partner_id = fields.Many2one(
         'res.partner',
@@ -21,37 +19,49 @@ class LoanApplication(models.Model):
         default=lambda self: self.env.user
     )
 
-    product_id = fields.Many2one(
-        'product.template',
-        string="Moto"
+    loan_amount = fields.Monetary(
+        string="Montant du prêt",
+        required=True
     )
 
     currency_id = fields.Many2one(
         'res.currency',
-        string="Devise",
         default=lambda self: self.env.company.currency_id
-    )
-
-    loan_amount = fields.Monetary(
-        string="Montant du prêt",
-        currency_field='currency_id',
-        required=True
-    )
-
-    down_payment = fields.Monetary(
-        string="Apport initial",
-        currency_field='currency_id'
     )
 
     interest_rate = fields.Float(
         string="Taux d'intérêt",
-        digits=(5, 2),
         required=True
     )
 
-    loan_term = fields.Integer(
-        string="Durée (Mois)",
-        default=36
+    loan_term = fields.Integer(default=36)
+
+    state = fields.Selection([
+        ('draft', 'Brouillon'),
+        ('approved', 'Approuvé'),
+        ('rejected', 'Rejeté')
+    ], default='draft')
+
+    # ✅ NOUVEAUX CHAMPS
+    tag_ids = fields.Many2many(
+        'loan.application.tag',
+        string="Tags"
+    )
+
+    document_ids = fields.One2many(
+        'loan.application.document',
+        'application_id',
+        string="Documents"
+    )
+
+    product_id = fields.Many2one(
+        'product.template',
+        string="Produit"
+    )
+
+    down_payment = fields.Monetary(
+    string="Apport initial",
+    currency_field='currency_id'
     )
 
     date_applied = fields.Date(
@@ -59,23 +69,42 @@ class LoanApplication(models.Model):
         default=fields.Date.today
     )
 
-    state = fields.Selection([
-        ('draft', 'Brouillon'),
-        ('sent', 'Envoyé'),
-        ('credit_check', 'Vérification de solvabilité'),
-        ('approved', 'Approuvé'),
-        ('rejected', 'Rejeté'),
-        ('signed', 'Signé'),
-        ('cancelled', 'Annulé'),
-    ],
-        string="Statut",
-        default='draft',
-        copy=False
-    )
-
     active = fields.Boolean(default=True)
 
+    #  AJOUT FINAL MANQUANT
     notes = fields.Html(
-        string="Notes internes",
-        copy=False
+        string="Notes internes"
     )
+
+# ✅ TAGS
+class LoanApplicationTag(models.Model):
+    _name = 'loan.application.tag'
+
+    name = fields.Char(required=True)
+    color = fields.Integer()
+
+
+# ✅ DOCUMENT TYPE
+class LoanApplicationDocumentType(models.Model):
+    _name = 'loan.application.document.type'
+
+    name = fields.Char(required=True)
+    is_required = fields.Boolean(string="Obligatoire")
+    active = fields.Boolean(default=True)
+
+
+# ✅ DOCUMENT
+class LoanApplicationDocument(models.Model):
+    _name = 'loan.application.document'
+
+    name = fields.Char(required=True)
+
+    state = fields.Selection([
+        ('new', 'Nouveau'),
+        ('approved', 'Approuvé'),
+        ('rejected', 'Rejeté'),
+    ], default='new')
+
+    type_id = fields.Many2one('loan.application.document.type')
+    application_id = fields.Many2one('loan.application', ondelete='cascade')
+    attachment_id = fields.Many2one('ir.attachment')

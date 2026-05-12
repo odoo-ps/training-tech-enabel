@@ -58,7 +58,22 @@
                     <group>
                         <field name="notes"/>
                     </group>
+<group>
+    <field name="tag_ids" widget="many2many_tags"/>
+</group>
 
+<notebook>
+    <page string="Liste de contrôle de conformité">
+        <field name="document_ids">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="type_id"/>
+                <field name="state"/>
+                <field name="attachment_id"/>
+            </list>
+        </field>
+    </page>
+</notebook>
                 </sheet>
             </form>
         </field>

@@ -5,7 +5,7 @@
     'version': "1.0.0",
     'author': "Malick SENE/MalickSe",
     'depends': ['product'],
-
+    'images': ['static/description/icon.png'],
     'data': [
     'security/categories.xml',
     'security/kawiil_financing_groups.xml',
@@ -13,8 +13,11 @@
     'security/kawiil_financing_security.xml',
     'views/loan_application_views.xml',
     'views/kawiil_financing_menu.xml',
+    'views/config_views.xml',
+    'views/config_menu.xml',
     ],
     'demo': [
+    'demo/loan_demo.xml',
     'demo/loan_demo.xml',
     ],
 

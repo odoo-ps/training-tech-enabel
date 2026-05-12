@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <menuitem id="menu_config"
+              name="Configuration"
+              parent="menu_motorcycle_financing"
+              groups="kawiil_financing.group_financing_admin"/>
+
+    <menuitem id="menu_tags"
+              name="Tags"
+              parent="menu_config"
+              action="action_tags"/>
+
+    <menuitem id="menu_doc_types"
+              name="Types de documents"
+              parent="menu_config"
+              action="action_doc_types"/>
+
+</odoo>
