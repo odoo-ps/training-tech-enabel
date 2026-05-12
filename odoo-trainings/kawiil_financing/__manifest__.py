@@ -10,6 +10,7 @@
     'data': [
     ],
     'demo': [
+        "demo/loan_demo.xml",
     ],
     'application': True,
 } 

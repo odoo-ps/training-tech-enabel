@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="loan_application.loan1" model="loan.application">
+            <field name="name">Loan1</field>
+            <field name="date_applied">01/01/2026</field>
+            <field name="partner_id" ref="base.res_partner_1">
+            <field name="product_id" ref="product.product_product_1">
+        </record>
+
+        <record id="loan_application.loan2" model="loan.application">
+            <field name="name">Loan2</field>
+            <field name="date_applied" eval="datetime.today() + relativedelta(months=-5)"/>
+            <field name="partner_id" ref="base.res_partner_1">
+            <field name="product_id" ref="product.product_product_1">
+        </record>
+
+        <record id="loan_application.loan3" model="loan.application">
+            <field name="name">Loan3</field>
+            <field name="date_applied" eval="datetime.today() + relativedelta(months=-2)"/>
+            <field name="partner_id" ref="base.res_partner_1">
+            <field name="product_id" ref="product.product_product_1">
+        </record>
+    </data>
+</odoo>
