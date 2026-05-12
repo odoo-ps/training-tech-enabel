@@ -85,7 +85,7 @@
                     string="Archivé"
                     domain="[('active','=',False)]"/>
             <!-- FILTRE GROUPE -->
-         
+
          <separator/>
 
             <filter name="group_state"
