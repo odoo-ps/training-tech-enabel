@@ -1,11 +1,13 @@
-
 from odoo import models, fields
 
 class LoanApplication(models.Model):
     _name = 'loan.application'
     _description = 'Loan Application'
 
-    name = fields.Char(string="Numéro de demande", required=True)
+    name = fields.Char(
+        string="Numéro de demande",
+        required=True
+    )
 
     partner_id = fields.Many2one(
         'res.partner',
@@ -32,7 +34,8 @@ class LoanApplication(models.Model):
 
     loan_amount = fields.Monetary(
         string="Montant du prêt",
-        currency_field='currency_id'
+        currency_field='currency_id',
+        required=True
     )
 
     down_payment = fields.Monetary(
@@ -40,16 +43,20 @@ class LoanApplication(models.Model):
         currency_field='currency_id'
     )
 
-    loan_term = fields.Integer(string="Durée (Mois)", default=36)
-
     interest_rate = fields.Float(
         string="Taux d'intérêt",
-        digits=(5, 2)
+        digits=(5, 2),
+        required=True
+    )
+
+    loan_term = fields.Integer(
+        string="Durée (Mois)",
+        default=36
     )
 
     date_applied = fields.Date(
         string="Date de demande",
-        default=lambda self: fields.Date.today()
+        default=fields.Date.today
     )
 
     state = fields.Selection([
@@ -60,8 +67,15 @@ class LoanApplication(models.Model):
         ('rejected', 'Rejeté'),
         ('signed', 'Signé'),
         ('cancelled', 'Annulé'),
-    ], string="Statut", default='draft')
+    ],
+        string="Statut",
+        default='draft',
+        copy=False
+    )
 
     active = fields.Boolean(default=True)
 
-    notes = fields.Html(string="Notes internes")
+    notes = fields.Html(
+        string="Notes internes",
+        copy=False
+    )

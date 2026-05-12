@@ -2,32 +2,30 @@
 <odoo>
     <data noupdate="1">
 
-        <!-- PRET 1 -->
         <record id="loan_demo_1" model="loan.application">
             <field name="name">LOAN-001</field>
             <field name="partner_id" ref="base.res_partner_1"/>
-            <field name="product_id" ref="product.product_product_4"/>
             <field name="loan_amount">5000000</field>
-            <field name="down_payment">1000000</field>
+            <field name="interest_rate">5.5</field>
             <field name="date_applied">2024-01-01</field>
         </record>
 
-        <!-- PRET 2 -->
         <record id="loan_demo_2" model="loan.application">
             <field name="name">LOAN-002</field>
             <field name="partner_id" ref="base.res_partner_2"/>
             <field name="loan_amount">3000000</field>
-            <field name="down_payment">500000</field>
-            <field name="date_applied" eval="(DateTime.now() - relativedelta(months=5)).strftime('%Y-%m-%d')"/>
+            <field name="interest_rate">4.2</field>
+            <field name="date_applied"
+                   eval="(fields.Date.today() - relativedelta(months=5))"/>
         </record>
 
-        <!-- PRET 3 -->
         <record id="loan_demo_3" model="loan.application">
             <field name="name">LOAN-003</field>
             <field name="partner_id" ref="base.res_partner_3"/>
             <field name="loan_amount">7000000</field>
-            <field name="down_payment">1500000</field>
-            <field name="date_applied" eval="(DateTime.now() - relativedelta(months=2)).strftime('%Y-%m-%d')"/>
+            <field name="interest_rate">6.0</field>
+            <field name="date_applied"
+                   eval="(fields.Date.today() - relativedelta(months=2))"/>
         </record>
 
     </data>
