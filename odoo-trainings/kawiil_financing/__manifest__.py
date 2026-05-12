@@ -8,6 +8,9 @@
     'version': '1.0.1',
     'depends': ['product'],
     'data': [
+        "security/kawiil_financing_groups.xml",
+        "security/ir.model.access.csv",
+        "security/kawiil_financing_security.xml",
         "views/loan_application_views.xml",
         "views/jawiil_financing_menu.xml",
     ],
