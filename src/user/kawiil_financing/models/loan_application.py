@@ -24,4 +24,4 @@ class LoanApplication(models.Model):
     )
     active = fields.Boolean(default=True)
     notes = fields.Html(string="Notes internes")
-``
+
