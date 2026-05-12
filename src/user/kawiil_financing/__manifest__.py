@@ -7,6 +7,7 @@
     "depends": ["base"],
     "data": [
         "views/kawiil_financing_menu.xml",
+	"security/ir.model.access.csv",
     ],
     "license": "OPL-1",
     "application": True,
