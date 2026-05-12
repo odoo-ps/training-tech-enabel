@@ -4,7 +4,7 @@
     "category": "Kawiil/Custom Modules",
     "version": "1.0.0",
     "author": "Malorie Amoussou",
-    "depends": ["base"],
+    "depends": ["product"],
     "data": [
         "views/kawiil_financing_menu.xml",
 	"security/ir.model.access.csv",
