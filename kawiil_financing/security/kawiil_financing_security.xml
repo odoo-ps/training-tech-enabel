@@ -1,0 +1,30 @@
+<odoo>
+
+    <!-- Règle pour les utilisateurs -->
+    <record id="loan_application_user_rule" model="ir.rule">
+        <field name="name">Loan Application User Restriction</field>
+        <field name="model_id" ref="model_loan_application"/>
+        <field name="groups" eval="[(4, ref('kawiil_financing.group_financing_user'))]"/>
+        <field name="domain_force">[('state', 'not in', ['signed'])]</field>
+
+        <!-- Permissions -->
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_create" eval="1"/>
+    </record>
+
+    <!-- Règle admin (aucune restriction) -->
+    <record id="loan_application_admin_rule" model="ir.rule">
+        <field name="name">Loan Application Admin Full Access</field>
+        <field name="model_id" ref="model_loan_application"/>
+        <field name="groups" eval="[(4, ref('kawiil_financing.group_financing_admin'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_create" eval="1"/>
+    </record>
+
+</odoo>
