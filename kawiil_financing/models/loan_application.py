@@ -42,7 +42,7 @@ class LoanApplication(models.Model):
         ('rejected', 'Rejeté')
     ], default='draft')
 
-    # ✅ NOUVEAUX CHAMPS
+    #  NOUVEAUX CHAMPS
     tag_ids = fields.Many2many(
         'loan.application.tag',
         string="Tags"
@@ -76,7 +76,7 @@ class LoanApplication(models.Model):
         string="Notes internes"
     )
 
-# ✅ TAGS
+#  TAGS
 class LoanApplicationTag(models.Model):
     _name = 'loan.application.tag'
     _description = 'Loan Application Tag'
@@ -85,7 +85,7 @@ class LoanApplicationTag(models.Model):
     color = fields.Integer()
 
 
-# ✅ DOCUMENT TYPE
+#  DOCUMENT TYPE
 class LoanApplicationDocumentType(models.Model):
     _name = 'loan.application.document.type'
     _description = 'Loan Application Document Type'
@@ -95,7 +95,7 @@ class LoanApplicationDocumentType(models.Model):
     active = fields.Boolean(default=True)
 
 
-# ✅ DOCUMENT
+#  DOCUMENT
 class LoanApplicationDocument(models.Model):
     _name = 'loan.application.document'
     _description = 'Loan Application Document'
@@ -111,3 +111,5 @@ class LoanApplicationDocument(models.Model):
     type_id = fields.Many2one('loan.application.document.type')
     application_id = fields.Many2one('loan.application', ondelete='cascade')
     attachment_id = fields.Many2one('ir.attachment')
+
+   
