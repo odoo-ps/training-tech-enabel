@@ -18,7 +18,6 @@
     ],
     'demo': [
     'demo/loan_demo.xml',
-    'demo/loan_demo.xml',
     ],
 
     'license': "OPL-1",

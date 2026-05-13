@@ -112,4 +112,4 @@ class LoanApplicationDocument(models.Model):
     application_id = fields.Many2one('loan.application', ondelete='cascade')
     attachment_id = fields.Many2one('ir.attachment')
 
-   
+
