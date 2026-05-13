@@ -17,6 +17,7 @@
     'views/config_menu.xml',
     ],
     'demo': [
+    'demo/config_demo.xml',
     'demo/loan_demo.xml',
     ],
 
