@@ -56,10 +56,15 @@ class LoanApplication(models.Model):
         inverse_name="application_id",
     )
 
-    _sql_constraints = [
-        ("name_unique", "UNIQUE(name)", _lt("Ce numéro de demande existe déjà.")),
-        ("loan_amount_positive", "CHECK(loan_amount > 0)", _lt("Le montant du capital doit être strictement supérieur à zéro.")),
-    ]
+    _name_unique = models.Constraint(
+        'UNIQUE(name)',
+        _('Ce numéro de demande existe déjà.'),
+    )
+
+    _loan_amount_positive = models.Constraint(
+        'CHECK(loan_amount > 0)',
+        _('Le montant du capital doit être strictement supérieur à zéro.'),
+    )
 
     @api.depends("loan_amount", "down_payment", "interest_rate")
     def _compute_total_loan_amount(self):
