@@ -5,5 +5,5 @@ class LoanApplicationDocumentType(models.Model):
     _name = "loan.application.document.type"
     _description = "Loan Application Document Type"
 
-    name = fields.Char(string="name", required=True)
-    active = fields.Boolean(string="active", default=True, required=True)
+    name = fields.Char(required=True)
+    active = fields.Boolean(default=True)

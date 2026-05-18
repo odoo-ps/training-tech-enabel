@@ -1,6 +1,6 @@
 {
     'name': 'Kawiil Financing',
-    'version': '19.0.0',
+    'version': '19.0.1',
     'category': 'Kawill/Custom Modules',
     'summary': 'Simplifie le processus de demande de prêt pour les concessionnaires',
     'author': 'sdelbeke',
