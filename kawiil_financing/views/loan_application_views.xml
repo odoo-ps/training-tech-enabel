@@ -31,6 +31,8 @@
                         <group>
                             <field name="name"/>
                             <field name="partner_id"/>
+                            <field name="partner_email"/>
+                            <field name="partner_phone"/>
                             <field name="user_id"/>
                             <field name="product_id"/>
                         </group>
@@ -40,6 +42,7 @@
                             <field name="down_payment"/>
                             <field name="loan_term"/>
                             <field name="interest_rate"/>
+                            <field name="total_loan_amount"/>
                             <field name="date_applied"/>
                         </group>
                     </group>
