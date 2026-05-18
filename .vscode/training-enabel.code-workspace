@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../../odev/worktrees/19.0/design-themes"
+		},
+		{
+			"path": "../../../../../odev/worktrees/19.0/enterprise"
+		},
+		{
+			"path": "../../../../../odev/worktrees/19.0/odoo"
+		}
+	],
+	"settings": {
+		"python.languageServer": "None"
+	}
+}

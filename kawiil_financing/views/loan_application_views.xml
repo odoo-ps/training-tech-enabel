@@ -11,6 +11,9 @@
                 <field name="partner_id"/>
                 <field name="loan_amount"/>
                 <field name="state"/>
+                <field name="loan_amount"/>
+                <field name="principal_amount"/>
+                <field name="down_payment"/>
             </list>
         </field>
     </record>
@@ -34,12 +37,15 @@
                             <field name="name"/>
                             <field name="partner_id"/>
                             <field name="product_id"/>
+                            <field name="customer_email"/>
+                            <field name="customer_phone"/>
                         </group>
 
                         <group>
-                            <field name="loan_amount"/>
-                            <field name="down_payment"/>
-                            <field name="currency_id"/>
+                            <field name="principal_amount" widget="monetary"/>
+                            <field name="down_payment" widget="monetary"/>
+                            <field name="loan_amount" widget="monetary"/>
+                            <field name="currency_id" invisible="1"/>
                         </group>
                     </group>
 
@@ -86,6 +92,8 @@
     <field name="model">loan.application</field>
     <field name="arch" type="xml">
         <search>
+            <field name="customer_email"/>
+            <field name="customer_phone"/>
             <field name="partner_id"/>
             <!-- FILTRE BROUILLON -->
             <filter  name="draft"

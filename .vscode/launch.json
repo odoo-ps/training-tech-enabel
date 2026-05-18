@@ -1,0 +1,111 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run",
+            "type": "debugpy",
+            "request": "launch",
+            "subProcess": true,
+            "justMyCode": true,
+            "console": "integratedTerminal",
+            "consoleName": "Odev Run ()",
+            "cwd": "/home/odoo/src/odoo-ps/training-tech-enabel",
+            "program": "/home/odoo/odev/worktrees/19.0/odoo/odoo-bin",
+            "python": "/home/odoo/odev/virtualenvs/19.0/bin/python",
+            "args": [
+                "--database",
+                "kawiil-training",
+                "--addons-path",
+                "/home/odoo/odev/worktrees/19.0/enterprise,/home/odoo/odev/worktrees/19.0/design-themes,/home/odoo/odev/worktrees/19.0/odoo/addons,/home/odoo/odev/worktrees/19.0/odoo/odoo/addons,.",
+                "-u",
+                "kawiil_financing",
+                // "--test-enable",
+                // "--stop-after-init", 
+                // "--test-tags",
+                // "/purchase,/account,/industry_fsm",
+                "--log-level=test",
+                "--limit-time-real=0",
+            ]
+        },
+        {
+            "name": "Shell",
+            "type": "debugpy",
+            "request": "launch",
+            "subProcess": true,
+            "justMyCode": true,
+            "console": "integratedTerminal",
+            "consoleName": "Odev Shell (savpro)",
+            "cwd": "/home/odoo/src/odoo-ps/psbe-savpro",
+            "program": "/home/odoo/src/odev/main.py",
+            "python": "/usr/bin/python3.10",
+            "args": [
+                "shell",
+                "savpro",
+                "--log-handler=odoo.addons.base.models.ir_attachment:WARNING",
+                "--limit-time-cpu=0",
+                "--limit-time-real=0"
+            ]
+        },
+        {
+            "name": "Attach Debugger",
+            "type": "debugpy",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        {
+            "name": "savpro",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "/home/odoo/odev/worktrees/17.0/odoo/",
+            "python": "/home/odoo/odev/virtualenvs/17.0/bin/python",
+            "program": "./odoo-bin",
+            "args": [
+                "--addons-path=/home/odoo/odev/worktrees/17.0/enterprise,/home/odoo/odev/worktrees/17.0/odoo/addons,/home/odoo/odev/worktrees/17.0/design-themes,/home/odoo/src/odoo-ps/psbe-savpro",
+                "--log-handler",
+                "odoo.addons.base.models.ir_attachment:WARNING",
+                // "-i", "savpro_worksheets",
+                // "-u", "savpro_sale",
+                // "-d", "savpro",
+                "--limit-time-real",
+                "99999",
+                "--dev",
+                "xml",
+                "--load-language",
+                "fr",
+                // "--test-enable",
+                // "--test-tags",
+                // ":chmg",
+                // "--stop-after-init", 
+                // "--upgrade-path=~/code/odoo/upgrade/migrations,~/code/odoo/psbe-custom-upgrade/migrations"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "savpro shell",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "/home/odoo/odev/worktrees/17.0/odoo/",
+            "python": "/home/odoo/odev/virtualenvs/17.0/bin/python",
+            "program": "./odoo-bin",
+            "args": [
+                "shell",
+                "--addons-path=/home/odoo/odev/worktrees/17.0/enterprise,/home/odoo/odev/worktrees/17.0/odoo/addons,/home/odoo/odev/worktrees/17.0/design-themes,/home/odoo/src/odoo-ps/psbe-savpro",
+                "--log-handler",
+                "odoo.addons.base.models.ir_attachment:WARNING",
+                // "-u", "fw_pvs",
+                "-d",
+                "savpro",
+                "--limit-time-real",
+                "99999",
+                "--dev",
+                "xml",
+                // "--test-enable",
+                // "--test-tags",
+                // "sapian_stock",
+                // "--stop-after-init", 
+                // "--upgrade-path=~/code/odoo/upgrade/migrations,~/code/odoo/psbe-custom-upgrade/migrations"
+            ],
+            "console": "externalTerminal"
+        },
+    ]
+}
