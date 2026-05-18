@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="financing_menu_root" name="Financing" web_icon="kawiil_financing,static/description/icon.png"/>
+
+    <menuitem id="motorcycle_financing_first_level_menu" name="Motorcycle Financing" parent="financing_menu_root"/>
+
+    <menuitem id="loan_application_menu_action" name="Loan Applications" parent="motorcycle_financing_first_level_menu" action="action_loan_application"/>
+
+    <menuitem id="financing_menu_configuration" name="Configuration" parent="financing_menu_root" groups="kawiil_financing.group_financing_admin"/>
+
+    <menuitem id="financing_menu_configuration_tags" name="Tags" parent="financing_menu_configuration" action="action_loan_application_tag"/>
+    <menuitem id="financing_menu_configuration_document_types" name="Documents Types" parent="financing_menu_configuration" action="action_loan_application_document_type"/>
+</odoo>
