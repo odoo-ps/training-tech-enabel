@@ -58,12 +58,12 @@ class LoanApplication(models.Model):
 
     _name_unique = models.Constraint(
         'UNIQUE(name)',
-        _('Ce numéro de demande existe déjà.'),
+        _lt('Ce numéro de demande existe déjà.'),
     )
 
     _loan_amount_positive = models.Constraint(
         'CHECK(loan_amount > 0)',
-        _('Le montant du capital doit être strictement supérieur à zéro.'),
+        _lt('Le montant du capital doit être strictement supérieur à zéro.'),
     )
 
     @api.depends("loan_amount", "down_payment", "interest_rate")
