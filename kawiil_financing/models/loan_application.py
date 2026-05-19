@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class LoanApplication(models.Model):
@@ -19,10 +19,10 @@ class LoanApplication(models.Model):
         default=lambda self: self.env.user
     )
 
-    loan_amount = fields.Monetary(
-        string="Montant du prêt",
-        required=True
-    )
+ #   loan_amount = fields.Monetary(
+  #      string="Montant du prêt",
+   #     required=True
+   # )
 
     currency_id = fields.Many2one(
         'res.currency',
@@ -59,10 +59,35 @@ class LoanApplication(models.Model):
         string="Produit"
     )
 
+    principal_amount = fields.Monetary(
+        string="Montant principal",
+        currency_field='currency_id',
+        required=True
+    )
+
     down_payment = fields.Monetary(
     string="Apport initial",
     currency_field='currency_id'
     )
+
+    loan_amount = fields.Monetary(
+        string="Montant du prêt",
+        currency_field='currency_id',
+        compute="_compute_loan_amount",
+        inverse="_inverse_loan_amount",
+        store=True
+    )
+
+    #  CALCUL
+    @api.depends('principal_amount', 'down_payment')
+    def _compute_loan_amount(self):
+        for record in self:
+            record.loan_amount = record.principal_amount - record.down_payment
+
+    #  INVERSE
+    def _inverse_loan_amount(self):
+        for record in self:
+            record.down_payment = record.principal_amount - record.loan_amount
 
     date_applied = fields.Date(
         string="Date de demande",
@@ -75,6 +100,21 @@ class LoanApplication(models.Model):
     notes = fields.Html(
         string="Notes internes"
     )
+
+    # CHAMPS LIEES
+
+    email = fields.Char(
+        related='partner_id.email',
+        string="Email",
+        readonly=True
+    )
+
+    phone = fields.Char(
+        related='partner_id.phone',
+        string="Téléphone",
+        readonly=True
+    )
+
 
 #  TAGS
 class LoanApplicationTag(models.Model):
