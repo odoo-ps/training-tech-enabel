@@ -7,3 +7,4 @@ class LoanApplicationDocumentType(models.Model):
 
     name = fields.Char(required=True)
     active = fields.Boolean(default=True)
+    is_mandatory = fields.Boolean(string="Obligatoire", default=False)

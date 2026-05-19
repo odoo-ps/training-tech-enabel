@@ -19,6 +19,9 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="action_submit" string="Soumettre" type="object" invisible="state != 'draft'"/>
+                    <button name="action_approve_loan" string="Approuver" type="object" invisible="state not in ('sent', 'solvency_check')"/>
+                    <button name="action_reject_loan" string="Rejeter" type="object" invisible="state not in ('sent', 'solvency_check')"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent,approved,signed" options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
@@ -35,6 +38,8 @@
                             <field name="partner_phone"/>
                             <field name="user_id"/>
                             <field name="product_id"/>
+                            <field name="date_approved"/>
+                            <field name="date_rejected"/>
                         </group>
                         <group>
                             <field name="currency_id"/>
@@ -54,6 +59,8 @@
                                     <field name="type_id"/>
                                     <field name="state"/>
                                     <field name="attachment_id"/>
+                                    <button name="action_approve_document" type="object" icon="fa-check"/>
+                                    <button name="action_reject_document" type="object" icon="fa-times"/>
                                 </list>
                             </field>
                         </page>

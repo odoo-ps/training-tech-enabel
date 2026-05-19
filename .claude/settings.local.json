@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Read(//home/sdelbeke/enabel/projects/odoo_dev/**)",
-      "Read(//home/sdelbeke/**)"
-    ]
-  }
-}

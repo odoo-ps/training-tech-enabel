@@ -1,6 +1,6 @@
 from odoo import _, api, fields, models
 from odoo.tools.translate import _lt
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 
 class LoanApplication(models.Model):
@@ -65,6 +65,8 @@ class LoanApplication(models.Model):
         'CHECK(loan_amount > 0)',
         _lt('Le montant du capital doit être strictement supérieur à zéro.'),
     )
+    date_approved = fields.Date(string="Date d'approbation")
+    date_rejected = fields.Date(string="Date de rejet")
 
     @api.depends("loan_amount", "down_payment", "interest_rate")
     def _compute_total_loan_amount(self):
@@ -79,3 +81,19 @@ class LoanApplication(models.Model):
         for record in self:
             if record.down_payment >= record.loan_amount:
                 raise ValidationError(_("l'apport ne peut être supérieure ou égal au prêt"))
+
+
+    def action_submit(self):
+        mandatory_docs = self.document_ids.filtered(lambda d: d.type_id.is_mandatory)
+        if not mandatory_docs or any(d.state != "approved" for d in mandatory_docs):
+            raise UserError(self.env._("Tous les documents obligatoires doivent être approuvés avant la soumission."))
+        self.state = "sent"
+        self.date_applied = fields.Date.today()
+
+    def action_approve_loan(self):
+        self.state = "approved"
+        self.date_approved = fields.Date.today()
+
+    def action_reject_loan(self):
+        self.state = "rejected"
+        self.date_rejected = fields.Date.today()
