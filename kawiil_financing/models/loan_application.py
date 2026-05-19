@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 from odoo.tools.translate import _lt
 from odoo.exceptions import UserError, ValidationError
 
@@ -67,6 +67,19 @@ class LoanApplication(models.Model):
     )
     date_approved = fields.Date(string="Date d'approbation")
     date_rejected = fields.Date(string="Date de rejet")
+
+    @api.model
+    def _get_default_document_types(self):
+        return self.env["loan.application.document.type"].search([])
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        document_types = self._get_default_document_types()
+        for vals in vals_list:
+            vals["document_ids"] = vals.get("document_ids", []) + [
+                Command.create({"name": doc_type.name, "type_id": doc_type.id}) for doc_type in document_types
+            ]
+        return super().create(vals_list)
 
     @api.depends("loan_amount", "down_payment", "interest_rate")
     def _compute_total_loan_amount(self):
