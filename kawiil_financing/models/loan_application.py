@@ -5,6 +5,7 @@ from odoo.exceptions import UserError, ValidationError
 
 class LoanApplication(models.Model):
     _name = "loan.application"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Loan Application"
 
     name = fields.Char(string="Numéro de demande", required=True)
@@ -25,7 +26,8 @@ class LoanApplication(models.Model):
             ("cancelled", "Annulé"),
         ],
         default="draft",
-        copy=False
+        copy=False,
+        tracking=True
     )
     active = fields.Boolean(default=True)
     notes = fields.Html(string="Notes internes", copy=False)
@@ -41,7 +43,7 @@ class LoanApplication(models.Model):
     product_id = fields.Many2one(comodel_name="product.template", string="Moto")
 
     currency_id = fields.Many2one(comodel_name="res.currency")
-    loan_amount = fields.Monetary(string="Montant du prêt", currency_field="currency_id", required=True)
+    loan_amount = fields.Monetary(string="Montant du prêt", currency_field="currency_id", required=True, tracking=True)
     down_payment = fields.Monetary(string="Acompte", currency_field="currency_id")
     total_loan_amount = fields.Monetary(
         string="Montant total du prêt",
@@ -105,6 +107,10 @@ class LoanApplication(models.Model):
             raise UserError(self.env._("Tous les documents obligatoires doivent être approuvés avant la soumission."))
         self.state = "sent"
         self.date_applied = fields.Date.today()
+        self.message_post(
+            body=self.env._("Demande soumise avec succès pour révision !"),
+            subtype_xmlid="mail.mt_note",
+        )
 
     def action_approve_loan(self):
         self.state = "approved"

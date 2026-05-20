@@ -6,6 +6,7 @@
     'author': 'sdelbeke',
     'license': 'OPL-1',
     'depends': [
+        'mail',
         'product',
         'contacts',
     ],
