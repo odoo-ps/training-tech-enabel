@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import Command, api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
@@ -53,8 +53,9 @@ class LoanApplication(models.Model):
 
     state = fields.Selection([
         ('draft', 'Brouillon'),
+        ('sent', 'Envoyé'),
         ('approved', 'Approuvé'),
-        ('rejected', 'Rejeté')
+        ('rejected', 'Rejeté'),
     ], default='draft')
 
     #  NOUVEAUX CHAMPS
@@ -100,6 +101,24 @@ class LoanApplication(models.Model):
         required=True
     )
 
+    fieldA = fields.Integer(string="Field A")
+    fieldB = fields.Integer(string="Field B")
+    fieldResult = fields.Integer(string="Field Result")
+
+    date_approved = fields.Date(string="Date d'approbation")
+    date_refused = fields.Date(string="Date de rejet")
+
+    def reset_number(self):
+        for rec in self:
+            rec.fieldA = 0
+            rec.fieldB = 0
+            rec.fieldResult = 0
+
+    @api.onchange('fieldA', 'fieldB')
+    def _onchange_fields(self):
+        for rec in self:
+            rec.fieldResult = (rec.fieldA or 0) + (rec.fieldB or 0)
+
     @api.constrains('principal_amount', 'down_payment')
     def _check_amounts(self):
         for rec in self:
@@ -114,6 +133,41 @@ class LoanApplication(models.Model):
     def _inverse_loan_amount(self):
         for rec in self:
             rec.down_payment = (rec.principal_amount or 0.0) - (rec.loan_amount or 0.0)
+
+    def action_approve(self):
+        self.state = 'approved'
+        self.date_approved = fields.Date.today()
+
+    def action_reject(self):
+        self.state = 'rejected'
+        self.date_refused = fields.Date.today()
+
+    def action_submit(self):
+        self.date_applied = fields.Date.today()
+        required_docs = self.document_ids.filtered(lambda d: d.type_id.is_required)
+        if not required_docs.attachment_id:
+            raise ValidationError(_("You must upload required document before submitting the application."))
+        self.state = 'sent'
+
+    @api.model
+    def _get_default_document_types(self):
+        return self.env['loan.application.document.type'].search([('is_required', '=', True)])
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        for record in records:
+            if not record.document_ids:
+                default_types = self._get_default_document_types()
+                record.document_ids = [
+                    Command.create({
+                        'name': f"{doc_type.name} for {record.name}",
+                        'type_id': doc_type.id,
+                    })
+                    for doc_type in default_types
+                ]
+        return records
+
 
 
 #  TAGS
@@ -152,4 +206,10 @@ class LoanApplicationDocument(models.Model):
     application_id = fields.Many2one('loan.application', ondelete='cascade')
     attachment_id = fields.Many2one('ir.attachment')
 
+
+    def action_approve_document(self):
+        self.state = 'approved'
+
+    def action_reject_document(self):
+        self.state = 'rejected'
 

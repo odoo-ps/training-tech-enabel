@@ -14,6 +14,9 @@
                 <field name="loan_amount"/>
                 <field name="principal_amount"/>
                 <field name="down_payment"/>
+                <field name="fieldA"/>
+                <field name="fieldB"/>
+                <field name="fieldResult"/>
             </list>
         </field>
     </record>
@@ -26,8 +29,18 @@
             <form>
 
                 <header>
+                    <button name="action_submit" type="object" string="Soumettre"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="Approuver"
+                            class="btn-success"
+                            invisible="state != 'sent'"/>
+                    <button name="action_reject" type="object" string="Rejeter"
+                            class="btn-danger"
+                            invisible="state not in ('sent', 'approved')"/>
+                    <button name="reset_number" type="object" string="Reset Number"/>
                     <field name="state" widget="statusbar"
-                           statusbar_visible="draft,sent,credit_check,approved,rejected,signed,cancelled"/>
+                           statusbar_visible="draft,sent,approved,rejected"/>
                 </header>
 
                 <sheet>
@@ -46,6 +59,9 @@
                             <field name="down_payment" widget="monetary"/>
                             <field name="loan_amount" widget="monetary"/>
                             <field name="currency_id" invisible="1"/>
+                            <field name="fieldA"/>
+                            <field name="fieldB"/>
+                            <field name="fieldResult"/>
                         </group>
                     </group>
 
@@ -57,6 +73,8 @@
 
                         <group>
                             <field name="date_applied"/>
+                            <field name="date_approved" invisible="state not in ('approved',)"/>
+                            <field name="date_refused" invisible="state not in ('rejected',)"/>
                             <field name="user_id"/>
                         </group>
                     </group>
@@ -76,6 +94,12 @@
                 <field name="type_id"/>
                 <field name="state"/>
                 <field name="attachment_id"/>
+                <button name="action_approve_document" type="object"
+                        icon="fa-check" title="Approuver"
+                        invisible="state == 'approved'"/>
+                <button name="action_reject_document" type="object"
+                        icon="fa-times" title="Rejeter"
+                        invisible="state == 'rejected'"/>
             </list>
         </field>
     </page>
