@@ -6,13 +6,15 @@
     'author': 'sdelbeke',
     'license': 'OPL-1',
     'depends': [
-        'product'
+        'product',
+        'contacts',
     ],
     'application': True,
     'data': [
         'security/kawiil_financing_groups.xml',
         'security/ir.model.access.csv',
         'security/kawiil_financing_security.xml',
+        'views/res_partner_views.xml',
         'views/loan_application_views.xml',
         'views/loan_application_tag_views.xml',
         'views/loan_application_document_type_views.xml',

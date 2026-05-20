@@ -70,14 +70,17 @@ class LoanApplication(models.Model):
 
     @api.model
     def _get_default_document_types(self):
-        return self.env["loan.application.document.type"].search([])
+        return self.env["loan.application.document.type"].search(['is_mandatory','=',True])
 
     @api.model_create_multi
     def create(self, vals_list):
         document_types = self._get_default_document_types()
         for vals in vals_list:
             vals["document_ids"] = vals.get("document_ids", []) + [
-                Command.create({"name": doc_type.name, "type_id": doc_type.id}) for doc_type in document_types
+                Command.create({
+                    "name": doc_type.name,
+                    "type_id": doc_type.id
+                }) for doc_type in document_types
             ]
         return super().create(vals_list)
 

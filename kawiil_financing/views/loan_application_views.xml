@@ -59,8 +59,8 @@
                                     <field name="type_id"/>
                                     <field name="state"/>
                                     <field name="attachment_id"/>
-                                    <button name="action_approve_document" type="object" icon="fa-check"/>
-                                    <button name="action_reject_document" type="object" icon="fa-times"/>
+                                    <button name="action_approve_document" type="object" icon="fa-check" title="Approve"/>
+                                    <button name="action_reject_document" type="object" icon="fa-times" title="Reject"/>
                                 </list>
                             </field>
                         </page>

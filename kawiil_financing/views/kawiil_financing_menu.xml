@@ -4,6 +4,8 @@
 
     <menuitem id="motorcycle_financing_first_level_menu" name="Motorcycle Financing" parent="financing_menu_root"/>
 
+    <menuitem id="financing_menu_clients" name="Clients" parent="motorcycle_financing_first_level_menu" action="action_res_partner" sequence="5"/>
+
     <menuitem id="loan_application_menu_action" name="Loan Applications" parent="motorcycle_financing_first_level_menu" action="action_loan_application"/>
 
     <menuitem id="financing_menu_configuration" name="Configuration" parent="financing_menu_root" groups="kawiil_financing.group_financing_admin"/>
