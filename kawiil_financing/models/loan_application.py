@@ -103,7 +103,7 @@ class LoanApplication(models.Model):
 
     def action_submit(self):
         mandatory_docs = self.document_ids.filtered(lambda d: d.type_id.is_mandatory)
-        if not mandatory_docs or any(d.state != "approved" for d in mandatory_docs):
+        if any(d.state != "approved" for d in mandatory_docs):
             raise UserError(self.env._("Tous les documents obligatoires doivent être approuvés avant la soumission."))
         self.state = "sent"
         self.date_applied = fields.Date.today()
