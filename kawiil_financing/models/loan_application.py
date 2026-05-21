@@ -1,4 +1,6 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _lt
 
 
 class LoanApplication(models.Model):
@@ -6,6 +8,19 @@ class LoanApplication(models.Model):
     _description = 'Loan Application'
 
     name = fields.Char(string="Numéro de demande", required=True)
+    #  CONSTRAINTS
+    _name_unique = models.Constraint(
+        'UNIQUE(name)',
+        _lt('Ce numéro de demande existe déjà.'),
+    )
+
+    @api.constrains('principal_amount', 'down_payment')
+    def _check_down_payment(self):
+        for record in self:
+            if record.down_payment >= record.principal_amount:
+                raise ValidationError(
+                    record.env._("L'apport doit être strictement inférieur au montant principal.")
+                )
 
     partner_id = fields.Many2one(
         'res.partner',
@@ -18,11 +33,6 @@ class LoanApplication(models.Model):
         string="Vendeur",
         default=lambda self: self.env.user
     )
-
- #   loan_amount = fields.Monetary(
-  #      string="Montant du prêt",
-   #     required=True
-   # )
 
     currency_id = fields.Many2one(
         'res.currency',

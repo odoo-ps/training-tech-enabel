@@ -59,7 +59,7 @@
                             <field name="user_id"/>
                         </group>
                     </group>
-                    
+
 <group>
     <field name="tag_ids" widget="many2many_tags"/>
 </group>
