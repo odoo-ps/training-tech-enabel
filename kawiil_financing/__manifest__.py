@@ -4,7 +4,7 @@
     'category': "Kawiil/Custom Modules",
     'version': "1.0.0",
     'author': "Malick SENE/MalickSe",
-    'depends': ['product'],
+    'depends': ['product', 'contacts'],
     'images': ['static/description/icon.png'],
     'data': [
     'security/categories.xml',
@@ -15,6 +15,7 @@
     'views/kawiil_financing_menu.xml',
     'views/config_views.xml',
     'views/config_menu.xml',
+    'views/res_partner_views.xml',
     ],
     'demo': [
     'demo/config_demo.xml',

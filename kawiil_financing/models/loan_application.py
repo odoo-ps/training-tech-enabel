@@ -1,9 +1,10 @@
 from odoo import Command, api, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 
 class LoanApplication(models.Model):
     _name = 'loan.application'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Loan Application'
 
     _name_uniq = models.Constraint(
@@ -56,7 +57,7 @@ class LoanApplication(models.Model):
         ('sent', 'Envoyé'),
         ('approved', 'Approuvé'),
         ('rejected', 'Rejeté'),
-    ], default='draft')
+    ], default='draft', tracking=True)
 
     #  NOUVEAUX CHAMPS
     tag_ids = fields.Many2many(
@@ -98,7 +99,8 @@ class LoanApplication(models.Model):
     principal_amount = fields.Monetary(
         string="Montant principal",
         currency_field='currency_id',
-        required=True
+        required=True,
+        tracking=True,
     )
 
     fieldA = fields.Integer(string="Field A")
@@ -146,8 +148,12 @@ class LoanApplication(models.Model):
         self.date_applied = fields.Date.today()
         required_docs = self.document_ids.filtered(lambda d: d.type_id.is_required)
         if not required_docs.attachment_id:
-            raise ValidationError(_("You must upload required document before submitting the application."))
+            raise UserError(_("You must upload required document before submitting the application."))
         self.state = 'sent'
+        self.message_post(
+            body=_("Demande soumise avec succès pour révision !"),
+            subtype_xmlid="mail.mt_note",
+        )
 
     @api.model
     def _get_default_document_types(self):

@@ -19,10 +19,10 @@
                 "/home/odoo/odev/worktrees/19.0/enterprise,/home/odoo/odev/worktrees/19.0/design-themes,/home/odoo/odev/worktrees/19.0/odoo/addons,/home/odoo/odev/worktrees/19.0/odoo/odoo/addons,.",
                 "-u",
                 "kawiil_financing",
-                // "--test-enable",
-                // "--stop-after-init", 
+                "--test-enable",
+                "--stop-after-init", 
                 // "--test-tags",
-                // "/purchase,/account,/industry_fsm",
+                // ".test_loan_application",
                 "--log-level=test",
                 "--limit-time-real=0",
             ]
