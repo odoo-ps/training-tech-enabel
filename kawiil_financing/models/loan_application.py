@@ -1,7 +1,6 @@
-from odoo import _, models, fields, api
-from odoo.exceptions import ValidationError
+from odoo import _, models, fields, api, Command
+from odoo.exceptions import ValidationError, UserError
 from odoo.tools.translate import _lt
-from odoo.exceptions import UserError
 
 _name_unique = models.Constraint(
     'UNIQUE(name)',
@@ -50,11 +49,6 @@ class LoanApplication(models.Model):
             record.date_rejected = fields.Date.today()
 
     name = fields.Char(string="Numéro de demande", required=True)
-    #  CONSTRAINTS
-   # _name_unique = models.Constraint(
-     #   'UNIQUE(name)',
-      #  _lt('Ce numéro de demande existe déjà.'),
-   # )
 
     @api.constrains('principal_amount', 'down_payment')
     def _check_down_payment(self):
@@ -141,6 +135,30 @@ class LoanApplication(models.Model):
     def _inverse_loan_amount(self):
         for record in self:
             record.down_payment = record.principal_amount - record.loan_amount
+
+        #  AUTOMATISATION DOCUMENTS
+
+        @api.model
+        def _get_default_document_types(self):
+            return self.env['loan.application.document.type'].search([('active', '=', True)])
+
+        @api.model_create_multi
+        def create(self, vals_list):
+
+            document_types = self._get_default_document_types()
+
+            for vals in vals_list:
+                commands = [
+                    Command.create({
+                        'type_id': doc_type.id
+                    })
+                    for doc_type in document_types
+                ]
+
+                #  Toujours ajouter, sans bloquer
+                vals['document_ids'] = vals.get('document_ids', []) + commands
+
+            return super().create(vals_list)
 
     date_applied = fields.Date(
         string="Date de demande",
