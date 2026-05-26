@@ -4,7 +4,7 @@
     'category': "Kawiil/Custom Modules",
     'version': "19.0.18",
     'author': "Malick SENE/MalickSe",
-    'depends': ['base','contacts','product'],
+    'depends': ['base','contacts','product', 'mail'],
     'images': ['static/description/icon.png'],
     'data': [
     'security/categories.xml',

@@ -111,7 +111,7 @@
                                 icon="fa-times"
                                 title="Rejeter"
                                 invisible="state == 'rejected'"/>
-                                    
+
                                 </list>
                             </field>
                         </page>
@@ -122,6 +122,10 @@
     </page>
 </notebook>
                 </sheet>
+                
+            <!-- CHATTER -->
+            <chatter/>
+
             </form>
         </field>
     </record>

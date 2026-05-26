@@ -15,6 +15,7 @@ _loan_amount_positive = models.Constraint(
 class LoanApplication(models.Model):
     _name = 'loan.application'
     _description = 'Loan Application'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     def action_submit(self):
         for record in self:
@@ -37,6 +38,12 @@ class LoanApplication(models.Model):
 
             record.state = 'sent'
             record.date_applied = fields.Date.today()
+
+            #  MESSAGE CHATTER
+            record.message_post(
+                body=record.env._("Demande soumise avec succès pour révision !"),
+                subtype_xmlid="mail.mt_note"
+            )
 
     def action_approve_loan(self):
         for record in self:
@@ -109,7 +116,8 @@ class LoanApplication(models.Model):
     principal_amount = fields.Monetary(
         string="Montant principal",
         currency_field='currency_id',
-        required=True
+        required=True,
+        tracking=True
     )
 
     down_payment = fields.Monetary(
@@ -226,7 +234,7 @@ class LoanApplicationDocument(models.Model):
         ('sent', 'Envoyé'),
         ('approved', 'Approuvé'),
         ('rejected', 'Rejeté'),
-    ], default='draft')
+    ], default='draft', tracking=True)
 
     type_id = fields.Many2one('loan.application.document.type')
     application_id = fields.Many2one('loan.application', ondelete='cascade')
