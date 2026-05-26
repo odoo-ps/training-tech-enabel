@@ -99,16 +99,19 @@
                                     <field name="type_id"/>
                                     <field name="state"/>
 
-                                    <button name="action_approve_document"
-                                            type="object"
-                                            icon="fa-check"
-                                            invisible="state == 'approved'"/>
 
-                                    <button name="action_reject_document"
-                                            type="object"
-                                            icon="fa-times"
-                                            invisible="state == 'rejected'"/>
+                                <button name="action_approve_document"
+                                type="object"
+                                icon="fa-check"
+                                title="Approuver"
+                                invisible="state == 'approved'"/>
 
+                               <button name="action_reject_document"
+                                type="object"
+                                icon="fa-times"
+                                title="Rejeter"
+                                invisible="state == 'rejected'"/>
+                                    
                                 </list>
                             </field>
                         </page>

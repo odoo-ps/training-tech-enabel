@@ -90,6 +90,7 @@ class LoanApplication(models.Model):
 
     state = fields.Selection([
         ('draft', 'Brouillon'),
+        ('sent', 'Envoyé'),
         ('approved', 'Approuvé'),
         ('rejected', 'Rejeté')
     ], default='draft')
