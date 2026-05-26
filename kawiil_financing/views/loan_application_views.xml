@@ -22,9 +22,29 @@
         <field name="arch" type="xml">
             <form>
 
+            <!-- HEADER ACTIONS -->
                 <header>
-                    <field name="state" widget="statusbar"
-                           statusbar_visible="draft,sent,credit_check,approved,rejected,signed,cancelled"/>
+                    <button name="action_submit"
+                            type="object"
+                            string="Envoyer"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_approve_loan"
+                            type="object"
+                            string="Approuver"
+                            class="btn-success"
+                            invisible="state != 'sent'"/>
+
+                    <button name="action_reject_loan"
+                            type="object"
+                            string="Rejeter"
+                            class="btn-danger"
+                            invisible="state != 'sent'"/>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,sent,approved,rejected"/>
                 </header>
 
                 <sheet>
@@ -53,28 +73,45 @@
                             <field name="loan_term"/>
                             <field name="interest_rate"/>
                         </group>
-
-                        <group>
+                        <!-- SUIVI -->
+                        <group string="Suivi">
                             <field name="date_applied"/>
+                            <field name="date_approved"/>
+                        <field name="date_rejected"/>
                             <field name="user_id"/>
                         </group>
                     </group>
+
+
 
 <group>
     <field name="tag_ids" widget="many2many_tags"/>
 </group>
 
 <notebook>
-    <page string="Liste de contrôle de conformité">
-        <field name="document_ids">
-            <list editable="bottom">
-                <field name="name"/>
-                <field name="type_id"/>
-                <field name="state"/>
-                <field name="attachment_id"/>
-            </list>
-        </field>
-    </page>
+
+<!-- DOCUMENTS -->
+                        <page string="Documents">
+                            <field name="document_ids">
+                                <list editable="bottom">
+
+                                    <field name="name"/>
+                                    <field name="type_id"/>
+                                    <field name="state"/>
+
+                                    <button name="action_approve_document"
+                                            type="object"
+                                            icon="fa-check"
+                                            invisible="state == 'approved'"/>
+
+                                    <button name="action_reject_document"
+                                            type="object"
+                                            icon="fa-times"
+                                            invisible="state == 'rejected'"/>
+
+                                </list>
+                            </field>
+                        </page>
     <page string="Notes">
         <list editable="bottom">
         <field name="notes"/>

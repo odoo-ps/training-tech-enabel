@@ -1,18 +1,60 @@
-from odoo import models, fields, api
+from odoo import _, models, fields, api
 from odoo.exceptions import ValidationError
 from odoo.tools.translate import _lt
+from odoo.exceptions import UserError
 
+_name_unique = models.Constraint(
+    'UNIQUE(name)',
+    _lt('Ce numéro de demande existe déjà.'),
+)
+
+_loan_amount_positive = models.Constraint(
+    'CHECK(loan_amount > 0)',
+    _lt('Le montant du capital doit être strictement supérieur à zéro.'),
+)
 
 class LoanApplication(models.Model):
     _name = 'loan.application'
     _description = 'Loan Application'
 
+    def action_submit(self):
+        for record in self:
+
+            required_docs = record.document_ids.filtered(
+                lambda d: d.type_id and d.type_id.is_required
+            )
+
+            if not required_docs:
+                raise UserError(
+                    record.env._("Aucun document obligatoire n'est fourni.")
+                )
+
+            not_approved = required_docs.filtered(lambda d: d.state != 'approved')
+
+            if not_approved:
+                raise UserError(
+                    record.env._("Tous les documents obligatoires doivent être approuvés.")
+                )
+
+            record.state = 'sent'
+            record.date_applied = fields.Date.today()
+
+    def action_approve_loan(self):
+        for record in self:
+            record.state = 'approved'
+            record.date_approved = fields.Date.today()
+
+    def action_reject_loan(self):
+        for record in self:
+            record.state = 'rejected'
+            record.date_rejected = fields.Date.today()
+
     name = fields.Char(string="Numéro de demande", required=True)
     #  CONSTRAINTS
-    _name_unique = models.Constraint(
-        'UNIQUE(name)',
-        _lt('Ce numéro de demande existe déjà.'),
-    )
+   # _name_unique = models.Constraint(
+     #   'UNIQUE(name)',
+      #  _lt('Ce numéro de demande existe déjà.'),
+   # )
 
     @api.constrains('principal_amount', 'down_payment')
     def _check_down_payment(self):
@@ -125,6 +167,14 @@ class LoanApplication(models.Model):
         readonly=True
     )
 
+    date_approved = fields.Date(
+        string="Date d'approbation"
+    )
+
+    date_rejected = fields.Date(
+        string="Date de rejet"
+    )
+
 
 #  TAGS
 class LoanApplicationTag(models.Model):
@@ -153,13 +203,24 @@ class LoanApplicationDocument(models.Model):
     name = fields.Char(required=True)
 
     state = fields.Selection([
-        ('new', 'Nouveau'),
+        ('draft', 'Brouillon'),
+        ('sent', 'Envoyé'),
         ('approved', 'Approuvé'),
         ('rejected', 'Rejeté'),
-    ], default='new')
+    ], default='draft')
 
     type_id = fields.Many2one('loan.application.document.type')
     application_id = fields.Many2one('loan.application', ondelete='cascade')
     attachment_id = fields.Many2one('ir.attachment')
 
+    date_approved = fields.Date(string="Date d'approbation")
+    date_rejected = fields.Date(string="Date de rejet")
+
+    def action_approve_document(self):
+        for record in self:
+            record.state = 'approved'
+
+    def action_reject_document(self):
+        for record in self:
+            record.state = 'rejected'
 

@@ -2,7 +2,7 @@
     'name': "Kawiil Financing",
     'summary': "Simplifie le processus de demande de prêt pour les concessionnaires.",
     'category': "Kawiil/Custom Modules",
-    'version': "19.0.10",
+    'version': "19.0.15",
     'author': "Malick SENE/MalickSe",
     'depends': ['product'],
     'images': ['static/description/icon.png'],
@@ -16,10 +16,10 @@
     'views/config_views.xml',
     'views/config_menu.xml',
     ],
-    'demo': [
-    'demo/config_demo.xml',
-    'demo/loan_demo.xml',
-    ],
+   # 'demo': [
+   # 'demo/config_demo.xml',
+   # 'demo/loan_demo.xml',
+  #  ],
 
     'license': "OPL-1",
     'application': True,
