@@ -1,0 +1,39 @@
+<odoo>
+
+    <!-- ✅ HEADER BUTTON -->
+    <record id="sale_order_form_finance" model="ir.ui.view">
+        <field name="name">sale.order.form.finance</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <header position="inside">
+
+                <button name="action_create_loan"
+                        type="object"
+                        string="Créer un prêt"
+                        class="btn-primary"
+                        invisible="state != 'sale'"/>
+
+            </header>
+
+            <!-- ✅ SMART BUTTON -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+
+                <button name="action_view_loans"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-money"
+                        title="Voir les prêts">
+
+                    <field name="loan_count"
+                           widget="statinfo"
+                           string="Prêts"/>
+                </button>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

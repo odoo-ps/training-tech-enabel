@@ -153,17 +153,21 @@ class LoanApplication(models.Model):
         @api.model_create_multi
         def create(self, vals_list):
 
-            document_types = self._get_default_document_types()
+            # récupérer types AVANT create
+            document_types = self.env['loan.application.document.type'].search([])
 
             for vals in vals_list:
-                commands = [
-                    Command.create({
-                        'type_id': doc_type.id
-                    })
-                    for doc_type in document_types
-                ]
 
-                #  Toujours ajouter, sans bloquer
+                commands = []
+
+                for doc_type in document_types:
+                    commands.append(
+                        Command.create({
+                            'type_id': doc_type.id
+                        })
+                    )
+
+                # injecter DIRECTEMENT dans les vals (avant super)
                 vals['document_ids'] = vals.get('document_ids', []) + commands
 
             return super().create(vals_list)

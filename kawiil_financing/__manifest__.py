@@ -22,6 +22,11 @@
    # 'demo/loan_demo.xml',
   #  ],
 
+'test': [
+    'tests/test_loan_application.py',
+],
+
     'license': "OPL-1",
+    'installable': True,
     'application': True,
 }
