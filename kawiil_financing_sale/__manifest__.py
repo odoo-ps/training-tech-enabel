@@ -1,7 +1,7 @@
 {
     'name': 'Kawiil Financing Sale',
     'summary': "Plateforme de demande de prêt.",
-    'category': "Kawiil",
+    'category': "Financing",
     'version': '19.0.1',
     'author': "Malick SENE/MalickSe",
     'depends': ['sale', 'kawiil_financing'],
