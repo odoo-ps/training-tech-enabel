@@ -1,0 +1,75 @@
+<odoo>
+
+    <!-- ✅ TEMPLATE PRINCIPAL -->
+    <template id="report_loan_summary_template">
+        <t t-call="web.external_layout">
+
+            <t t-foreach="docs" t-as="o">
+
+                <div class="page">
+
+                    <!-- ✅ TITRE -->
+                    <h2>Résumé de la demande de prêt</h2>
+
+                    <br/>
+
+                    <!-- ✅ INFOS CLIENT -->
+                    <h3>Client</h3>
+                    <p><strong>Nom :</strong> <span t-field="o.partner_id.name"/></p>
+                    <p><strong>Email :</strong> <span t-field="o.partner_id.email"/></p>
+                    <p><strong>Téléphone :</strong> <span t-field="o.partner_id.phone"/></p>
+
+                    <br/>
+
+                    <!-- ✅ INFOS PRÊT -->
+                    <h3>Détails du prêt</h3>
+                    <p><strong>Numéro :</strong> <span t-field="o.name"/></p>
+                    <p><strong>Produit :</strong> <span t-field="o.product_id.name"/></p>
+                    <p><strong>Date :</strong> <span t-field="o.date_applied"/></p>
+                    <p><strong>Durée :</strong> <span t-field="o.loan_term"/> mois</p>
+
+                    <br/>
+
+                    <!-- ✅ TABLEAU FINANCIER -->
+                    <h3>Détails financiers</h3>
+
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Montant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Montant principal</td>
+                                <td><span t-field="o.principal_amount"/></td>
+                            </tr>
+                            <tr>
+                                <td>Apport initial</td>
+                                <td><span t-field="o.down_payment"/></td>
+                            </tr>
+                            <tr>
+                                <td>Montant du prêt</td>
+                                <td><span t-field="o.loan_amount"/></td>
+                            </tr>
+                            <tr>
+                                <td>Taux d'intérêt</td>
+                                <td><span t-field="o.interest_rate"/> %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+
+                    <!-- ✅ STATUT -->
+                    <h3>Statut</h3>
+                    <p><strong>État :</strong> <span t-field="o.state"/></p>
+
+                </div>
+
+            </t>
+        </t>
+    </template>
+
+</odoo>
