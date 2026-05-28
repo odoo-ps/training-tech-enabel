@@ -42,7 +42,10 @@ class LoanApplication(models.Model):
     )
     product_id = fields.Many2one(comodel_name="product.template", string="Moto")
 
-    currency_id = fields.Many2one(comodel_name="res.currency")
+    currency_id = fields.Many2one(
+        comodel_name="res.currency",
+        default=lambda self: self.env.company.currency_id,
+    )
     loan_amount = fields.Monetary(string="Montant du prêt", currency_field="currency_id", required=True, tracking=True)
     down_payment = fields.Monetary(string="Acompte", currency_field="currency_id")
     total_loan_amount = fields.Monetary(

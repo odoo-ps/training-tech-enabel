@@ -20,6 +20,8 @@
         'views/loan_application_tag_views.xml',
         'views/loan_application_document_type_views.xml',
         'views/kawiil_financing_menu.xml',
+        'reports/loan_application_reports.xml',
+        'reports/loan_application_templates.xml'
     ],
     'demo': [
         'demo/config_demo.xml',

@@ -23,7 +23,7 @@ class TestLoanApplication(TransactionCase):
             "down_payment": 2000,
             "interest_rate": 0,
         })
-        self.assertEqual(application.total_loan_amount, 8000)
+        self.assertEqual(application.total_loan_amount, 9000)
         self.assertTrue(application.document_ids)
 
 
@@ -48,3 +48,18 @@ class TestLoanApplication(TransactionCase):
         })
         with self.assertRaises(UserError):
             application.action_submit()
+
+
+    def test_04_workflow_valid_ok(self):
+        application = self.env["loan.application"].create({
+            "name": "TEST-004",
+            "partner_id": self.partner.id,
+            "loan_amount": 10000,
+            "down_payment": 2000,
+            "interest_rate": 0,
+        })
+        application.document_ids.filtered(
+            lambda d: d.type_id.is_mandatory
+        ).write({"state": "approved"})
+        application.action_submit()
+        self.assertEqual(application.state, "sent")

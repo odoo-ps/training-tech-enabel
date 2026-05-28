@@ -10,6 +10,7 @@
             <field name="loan_term">36</field>
             <field name="interest_rate">5.5</field>
             <field name="state">approved</field>
+            <field name="currency_id" ref="base.EUR"/>
             <field name="loan_amount">100</field>
         </record>
 
@@ -20,6 +21,7 @@
             <field name="loan_term">24</field>
             <field name="interest_rate">6.0</field>
             <field name="state">sent</field>
+            <field name="currency_id" ref="base.EUR"/>
             <field name="loan_amount">100</field>
         </record>
 
@@ -30,6 +32,7 @@
             <field name="loan_term">48</field>
             <field name="interest_rate">4.75</field>
             <field name="state">draft</field>
+            <field name="currency_id" ref="base.EUR"/>
             <field name="loan_amount">100</field>
         </record>
 
