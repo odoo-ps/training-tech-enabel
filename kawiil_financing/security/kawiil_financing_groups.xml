@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- Catégorie -->
+    <record id="module_category_dealership" model="ir.module.category">
+        <field name="name">Dealership</field>
+        <field name="sequence">100</field>
+    </record>
+
+    <!-- Privilège -->
+    <record id="privilege_financing" model="res.groups.privilege">
+        <field name="name">Financing</field>
+        <field name="category_id" ref="module_category_dealership"/>
+    </record>
+
+    <!-- Groupe User -->
+    <record id="group_financing_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="privilege_id" ref="privilege_financing"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Groupe Admin -->
+    <record id="group_financing_admin" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="privilege_id" ref="privilege_financing"/>
+        <field name="implied_ids" eval="[(4, ref('group_financing_user'))]"/>
+    </record>
+
+</odoo>
