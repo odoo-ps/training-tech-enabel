@@ -1,8 +1,10 @@
+from pydoc import doc
+
 from odoo import api
 from odoo.tests.common import TransactionCase, tagged
 from odoo.exceptions import ValidationError, UserError
 
-@tagged('kawiil_financing')
+@tagged('post_install', '-at_install')
 class TestLoanApplication(TransactionCase):
     @api.model
     def _get_default_document_types(self):
@@ -25,7 +27,6 @@ class TestLoanApplication(TransactionCase):
 
     # TEST 1 : COMPUTE + CREATE
     def test_01_computes_and_crud(self):
-
         loan = self.env['loan.application'].create({
             'name': 'TEST-001',
             'partner_id': self.partner.id,
@@ -37,8 +38,16 @@ class TestLoanApplication(TransactionCase):
         #  Vérifier calcul
         self.assertEqual(loan.loan_amount, 8000)
 
-        #  Vérifier génération des documents
+        #  Créer un document lié
+        self.env['loan.application.document'].create({
+            'name': 'Doc Test',
+            'loan_id': loan.id,
+            'document_type_id': self.doc_type.id,
+        })
+
+        # Vérifier relation
         self.assertTrue(loan.document_ids)
+        self.assertIn(doc, loan.document_ids)
 
     # TEST 2 : CONTRAINTES PYTHON
 
