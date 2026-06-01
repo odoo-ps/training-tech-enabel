@@ -9,6 +9,7 @@
         'views/product_template_views.xml',
         'views/sale_order_views.xml',
     ],
+    'license': "OPL-1",
     'installable': True,
     'auto_install': True,
     'application': False,
