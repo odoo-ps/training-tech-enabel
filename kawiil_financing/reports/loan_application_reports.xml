@@ -1,0 +1,19 @@
+<odoo>
+
+    <record id="action_report_loan_summary" model="ir.actions.report">
+        <field name="name">Loan Summary</field>
+        <field name="model">loan.application</field>
+        <field name="binding_model_id" ref="model_loan_application"/>
+        <field name="report_type">qweb-pdf</field>
+
+        <!-- référence du template (encore non existant) -->
+        <field name="report_name">kawiil_financing.report_loan_summary_template</field>
+        <field name="report_file">kawiil_financing.report_loan_summary_template</field>
+
+        <!-- nom dynamique du PDF -->
+        <field name="print_report_name">
+            "Loan - %s" % (object.name or 'document')
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,9 @@
+<odoo>
+
+    <record id="module_category_kawiil_financing" model="ir.module.category">
+        <field name="name">Kawiil/Custom Modules</field>
+        <field name="description">Applications de financement Kawiil</field>
+        <field name="sequence">25</field>
+    </record>
+</odoo>
+

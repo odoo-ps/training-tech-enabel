@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- LIST VIEW -->
+    <record id="view_loan_application_list" model="ir.ui.view">
+        <field name="name">loan.application.list</field>
+        <field name="model">loan.application</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="loan_amount"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_loan_application_form" model="ir.ui.view">
+        <field name="name">loan.application.form</field>
+        <field name="model">loan.application</field>
+        <field name="arch" type="xml">
+            <form>
+
+            <!-- HEADER ACTIONS -->
+                <header>
+                    <button name="action_submit"
+                            type="object"
+                            string="Envoyer"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_approve_loan"
+                            type="object"
+                            string="Approuver"
+                            class="btn-success"
+                            invisible="state != 'sent'"/>
+
+                    <button name="action_reject_loan"
+                            type="object"
+                            string="Rejeter"
+                            class="btn-danger"
+                            invisible="state != 'sent'"/>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,sent,approved,rejected"/>
+                </header>
+
+                <sheet>
+
+                    <group>
+                        <!-- CLIENT -->
+                    <group string="Client">
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                        <field name="email" readonly="1"/>
+                        <field name="phone" readonly="1"/>
+                        <field name="product_id"/>
+                    </group>
+                        <!-- FINANCEMENT -->
+                <group string="Financement">
+                    <field name="currency_id" invisible="1"/>
+
+                    <field name="principal_amount" widget="monetary"/>
+                    <field name="down_payment" widget="monetary"/>
+                    <field name="loan_amount" widget="monetary"/>
+                </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="loan_term"/>
+                            <field name="interest_rate"/>
+                        </group>
+                        <!-- SUIVI -->
+                        <group string="Suivi">
+                            <field name="date_applied"/>
+                            <field name="date_approved"/>
+                        <field name="date_rejected"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+
+
+
+<group>
+    <field name="tag_ids" widget="many2many_tags"/>
+</group>
+
+<notebook>
+
+<!-- DOCUMENTS -->
+                        <page string="Documents">
+                            <field name="document_ids">
+                                <list editable="bottom">
+
+                                    <field name="name"/>
+                                    <field name="type_id"/>
+                                    <field name="state"/>
+
+
+                                <button name="action_approve_document"
+                                type="object"
+                                icon="fa-check"
+                                title="Approuver"
+                                invisible="state == 'approved'"/>
+
+                               <button name="action_reject_document"
+                                type="object"
+                                icon="fa-times"
+                                title="Rejeter"
+                                invisible="state == 'rejected'"/>
+
+                                </list>
+                            </field>
+                        </page>
+    <page string="Notes">
+        <list editable="bottom">
+        <field name="notes"/>
+         </list>
+    </page>
+</notebook>
+                </sheet>
+
+            <!-- CHATTER -->
+            <chatter/>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW (VERSION ULTRA STABLE ODOO 19) -->
+   
+<record id="view_loan_application_search" model="ir.ui.view">
+    <field name="name">loan.application.search</field>
+    <field name="model">loan.application</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="partner_id"/>
+            <!-- FILTRE BROUILLON -->
+            <filter  name="draft"
+                     string="Brouillon"
+                     domain="[('state','=','draft')]"/>
+                <!-- FILTRE APPROBATION -->
+            <filter name="approved"
+                    string="Approuvé"
+                    domain="[('state','=','approved')]"/>
+                <!-- FILTRE ARCHIVAGE -->
+            <filter name="archived"
+                    string="Archivé"
+                    domain="[('active','=',False)]"/>
+            <!-- FILTRE GROUPE -->
+
+         <separator/>
+
+            <filter name="group_state"
+                        string="Regrouper par Statut"
+                        context="{'group_by':'state'}"/>
+
+            <filter name="group_partner"
+                        string="Regrouper par Client"
+                        context="{'group_by':'partner_id'}"/>
+
+
+
+        </search>
+    </field>
+</record>
+
+    <!-- ACTION -->
+    <record id="action_loan_application" model="ir.actions.act_window">
+        <field name="name">Loan Applications</field>
+        <field name="res_model">loan.application</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

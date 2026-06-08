@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_loan_summary_template">
+
+        <!-- Conteneur principal -->
+        <t t-call="web.html_container">
+
+            <!-- Boucle sur les documents -->
+            <t t-foreach="docs" t-as="doc">
+
+                <!-- Layout standard Odoo avec langue du client -->
+                <t t-call="web.external_layout" t-lang="doc.partner_id.lang">
+
+                    <div class="page">
+
+                        <!-- Titre -->
+                        <h2>
+                            <t t-esc="doc.name"/>
+                        </h2>
+
+                        <!-- Informations client -->
+                        <p>
+                            <strong>Client :</strong>
+                            <t t-esc="doc.partner_id.name"/>
+                        </p>
+                        <p>
+                            <strong>Email :</strong>
+                            <t t-esc="doc.email"/>
+                        </p>
+                        <p>
+                            <strong>Téléphone :</strong>
+                            <t t-esc="doc.phone "/>
+                        </p>
+
+                        <!-- Montant principal -->
+                        <p>
+                            <strong>Montant principal :</strong>
+                            <span t-field="doc.principal_amount"
+                                  t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                        </p>
+
+                        <p>
+                            <strong>Apport initial :</strong>
+                            <span t-field="doc.down_payment"
+                                  t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                        </p>
+                        <p>
+                            <strong>Montant du prêt :</strong>
+                            <span t-field="doc.loan_amount"
+                                  t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                        </p>
+
+                        <!-- Tableau des documents -->
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Document</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.document_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="line.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.state"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </t>
+            </t>
+
+        </t>
+    </template>
+</odoo>
